@@ -3,7 +3,7 @@ terraform{
 
     backend "s3" {
         bucket = "pgr301-terraform-state"
-        key = "infra-s3/terraform.tfstate"
+        key = "infra-s3/kandidat-49/terraform.tfstate"
         region = "eu-west-1"
     }
     required_providers{
@@ -16,7 +16,10 @@ terraform{
 provider "aws" {
     region = var.aws_region
     }
-resources "aws_s3_bucket" "analyseresultater"{
+resource "aws_s3_bucket" "analyseresultater"{
+    bucket = var.bucket_name
+}
+resource "aws_s3_bucket_lifecycle_configuration" "lifecycle"{
     bucket = aws_s3_bucket.analyseresultater.id
 
     rule {
@@ -31,12 +34,6 @@ resources "aws_s3_bucket" "analyseresultater"{
         }
         expiration {
             days = var.days_to_delete
-            }
         }
+    }
 }
-output "bucket_name" {
-    value = aws_s3_bucket.analyseresultater.bucket
-}
-output "bucket_region"{
-    var.aws_region
- }
