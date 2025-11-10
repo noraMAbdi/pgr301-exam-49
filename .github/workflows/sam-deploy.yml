@@ -38,8 +38,7 @@ jobs:
       - name: Deploy SAM application
         working-directory: ./sam-comprehend
         run: |
-          sam deploy \
-            --stack-name aialpha-sentiment-glennbech \
+          sam deploy --stack-name sam-comprehend-user49 \
             --s3-bucket user49-data \
             --region eu-west-1 \
             --capabilities CAPABILITY_IAM \
