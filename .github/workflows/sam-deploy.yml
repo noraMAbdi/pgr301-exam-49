@@ -2,15 +2,18 @@ name: Deploy SAM Application
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - 'sam-comprehend/**'
+      - '.github/workflows/sam-deploy.yml'
   pull_request:
-    branches:
-      - main
+    branches: [main]
     paths:
       - 'sam-comprehend/**'
+      - '.github/workflows/sam-deploy.yml'
+  workflow_dispatch:
+
+
 
 #tror ikke Actions får riktig stack-name
 jobs:
