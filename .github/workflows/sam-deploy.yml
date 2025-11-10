@@ -1,4 +1,4 @@
-name: SAM DEPLOY #tester actions i github
+name: Deploy SAM Application
 
 on:
   push:
