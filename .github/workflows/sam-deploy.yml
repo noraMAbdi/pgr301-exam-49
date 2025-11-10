@@ -40,5 +40,9 @@ jobs:
         run: |
           sam deploy \
             --stack-name aialpha-sentiment-glennbech \
+            --s3-bucket user49-data \
+            --region eu-west-1 \
+            --capabilities CAPABILITY_IAM \
+            --parameter-overrides S3BucketName=user49-data \
             --no-confirm-changeset \
             --no-fail-on-empty-changeset
