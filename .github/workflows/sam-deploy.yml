@@ -1,5 +1,4 @@
 name: Deploy SAM Application
-
 on:
   push:
     branches: [main]
@@ -12,7 +11,6 @@ on:
       - 'sam-comprehend/**'
       - '.github/workflows/sam-deploy.yml'
   workflow_dispatch:
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -38,12 +36,5 @@ jobs:
 
       - name: Deploy SAM application
         working-directory: ./sam-comprehend
-        run: |
-          sam deploy \
-            --stack-name sam-comprehend-user49 \ 
-            --s3-bucket user49-data \
-            --region eu-west-1 \
-            --capabilities CAPABILITY_IAM \
-            --parameter-overrides S3BucketName=user49-data \
-            --no-confirm-changeset \
-            --no-fail-on-empty-changeset
+        run: sam deploy --stack-name sam-comprehend-user49 --s3-bucket user49-data --region eu-west-1 --capabilities CAPABILITY_IAM --parameter-overrides S3BucketName=user49-data --no-confirm-changeset --no-fail-on-empty-changeset
+
