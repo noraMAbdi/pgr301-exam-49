@@ -2,7 +2,7 @@
 
 ## Del A: 
 Http-endpoint: https://kuczeewwa5.execute-api.eu-west-1.amazonaws.com/Prod/analyze/
-![API success screenshot](./screenshots/oppgave2.png)
+![API success screenshot](infra-s3/screenshots/oppgave2.png)
 
 S3 Object: s3://user49-data/midlertidig/comprehend-20251108-212618-2718ec4f.json
 
