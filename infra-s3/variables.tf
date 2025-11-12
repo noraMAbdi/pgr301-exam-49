@@ -4,15 +4,15 @@ variable "aws_region" {
 }
 
 variable "bucket_name"{
-    description = "Navn på S3 bucket"
+    description = "pg301-eksamen"
     type = string
 }
 variable "days_to_glacier" {
     description = "Antall dager før filer flyttes til Glacier"
-    default = 7
+    default = 90
 }
 
 variable "days_to_delete"{
     description = "Antall dager før filer slettes"
-    default = 30
+    default = 90
 }
