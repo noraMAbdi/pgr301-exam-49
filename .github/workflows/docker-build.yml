@@ -11,8 +11,8 @@ on:
     paths:
       - 'sentiment-docker/**'
       - '.github/workflows/sentiment-docker-yml'
-  jobs:
-    build-and-publish:
+jobs:
+  build-and-publish:
       runs-on: ubuntu-latest
 
       steps:
