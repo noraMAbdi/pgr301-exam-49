@@ -23,21 +23,21 @@ on:
         - name: Build image
           run: |
             docker build \
-             -t ${{ secrets.DOCKERHUB_USERNAME }} /sentinment-docker:${{ github.sha}} \
+             -t ${{ secrets.DOCKER_USERNAME }} /sentinment-docker:${{ github.sha}} \
             ./sentiment-docker
 
         - name: Logg inn
           if: github.event_name == 'push'
           uses: docker/login-action@v3
           with:
-            username: ${{secrets.DOCKERHUB_USERNAME}}/sentiment-docker:${{github.sha}} \
+            username: ${{secrets.DOCKER_USERNAME}}/sentiment-docker:${{github.sha}} \
               ./sentiment-docker
 
         - name: Push image
           if: github.event_name == 'push'
           run: |
-            IMAGE_SHA = ${{secrets.DOCKERHUB_USERNAME}}/sentiment-docker:${{github.sha}}
-            IMAGE_LATEST = $${{secrets.DOCKERHUB_USERNAME}}/sentiment-docker:latest
+            IMAGE_SHA = ${{secrets.DOCKER_USERNAME}}/sentiment-docker:${{github.sha}}
+            IMAGE_LATEST = $${{secrets.DOCKER_USERNAME}}/sentiment-docker:latest
             docker tag "$IMAGE_SHA" "$IMAGE_LATEST"
             docker push "$IMAGE_SHA"
             docker push "$IMAGE_LATEST"
