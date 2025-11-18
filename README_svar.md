@@ -17,4 +17,12 @@ https://github.com/noraMAbdi/pgr301-exam-49/actions/runs/19244777057
 ----
 
 # Oppgave 3
+## Del A
+Dockerfile er korrigert i mappen sentiment-docker
 
+## Del B
+- Vellykket run https://github.com/noraMAbdi/pgr301-exam-49/actions/workflows/docker-build.yml
+
+---
+
+# Oppgave 4
