@@ -29,10 +29,11 @@ public class SentimentController {
 
     @PostMapping("/analyze")
     public ResponseEntity<SentimentResult> analyzeSentiment(@RequestBody AnalysisRequest request) {
-        long startTime = System.currentTimeMillis();
         try {
+            long startTime = System.currentTimeMillis();
             // Call Bedrock to analyze sentiment
             List<CompanySentiment> companies = bedrockService.analyzeSentiment(request.getText());
+            long duration = System.currentTimeMillis() - startTime;
 
             // Create result
             SentimentResult result = new SentimentResult(
@@ -46,13 +47,15 @@ public class SentimentController {
             s3StorageService.storeResult(result);
 
             // Record metrics (if implemented by student)
-            long duration = System.currentTimeMillis() - startTime;
             sentimentMetrics.recordCompaniesDetected(companies.size());
+
             for (CompanySentiment company : companies) {
                 sentimentMetrics.recordAnalysis(company.getSentiment(), company.getCompany());
+
                 sentimentMetrics.recordConfidence(company.getConfidence(), company.getSentiment(), company.getCompany());
-                sentimentMetrics.recordDuration(duration, company.getCompany(), bedrockService.getModelId());
+
             }
+            sentimentMetrics.recordDuration(duration, "all-companies", bedrockService.getModelId());
 
             return ResponseEntity.ok(result);
         } catch (Exception e) {

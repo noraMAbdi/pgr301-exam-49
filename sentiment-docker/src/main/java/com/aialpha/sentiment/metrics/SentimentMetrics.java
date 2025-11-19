@@ -1,17 +1,25 @@
 package com.aialpha.sentiment.metrics;
 
-import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.*;
 import org.springframework.stereotype.Component;
+
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
 public class SentimentMetrics {
 
     private final MeterRegistry meterRegistry;
 
+    private final AtomicInteger compDetectedGauge;
+
     // Constructor injection of MeterRegistry
     public SentimentMetrics(MeterRegistry meterRegistry) {
         this.meterRegistry = meterRegistry;
+        this.compDetectedGauge = new AtomicInteger(0);
+        Gauge.builder("sentiment.analysis.companies.detected", compDetectedGauge, AtomicInteger::get)
+                .description("Number of companies detected in last analysis")
+                .register(meterRegistry);
     }
 
     /**
@@ -28,14 +36,25 @@ public class SentimentMetrics {
     }
 
     public void recordDuration(long milliseconds, String company, String model) {
-        // TODO: Record timer
+        Timer.builder("sentiment.analysis.duration")
+                .tag("company", company)
+                .tag("model", model)
+                .description("Duration of analysis")
+                .register(meterRegistry)
+                .record(milliseconds, TimeUnit.MILLISECONDS);
     }
 
     public void recordCompaniesDetected(int count) {
-        // TODO: Update gauge
+        compDetectedGauge.set(count);
     }
 
     public void recordConfidence(double confidence, String sentiment, String company) {
-        // TODO: Record distribution summary
+        DistributionSummary.builder("sentiment.analysis.confidence")
+                .tag("sentiment", sentiment)
+                .baseUnit("score")
+                .tag("company", company)
+                .description("Distribution of confidence scores from sentiment analysis")
+                .register(meterRegistry)
+                .record(confidence);
     }
 }
