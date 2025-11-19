@@ -25,41 +25,45 @@ resource "aws_cloudwatch_metric_alarm" "companies_detected_high"{
     alarm_actions = [aws_sns_topic.alerts.arn]
 }
 
-resource "aws_cloudwatch_dashboard" "app_dashboard"{
+resource "aws_cloudwatch_dashboard" "app_dashboard" {
     dashboard_name = "kandidat49-SentimentDashboard"
     dashboard_body = jsonencode({
        widgets = [
            {
-               "type" : "metric",
-               "x" : 0 ,
-               "y" : 0,
-               "width" : 12,
-               "height" : 6,
-               "properties" : {
-                   "title" : "Sentiment analysis duration"
+               "type" = "metric",
+               "x" = 0 ,
+               "y" = 0,
+               "width" = 12,
+               "height" =  6,
+               "properties" =  {
+                   "title" =  "Sentiment analysis duration"
+                   "region" = "eu-west-1"
                    "metrics" : [
                        "kandidat49", "sentiment.analysis.duration"
                        ],
               " period" : 60,
                "stat" : "Average",
-               "view" : "timeSeries"
+               "view" : "timeSeries",
+               "annotations" = {}
 
                }
            },
            {
-            "type" : "metric",
-            "x" : 12,
-            "y" : 0,
-            "width" : 12,
-            "height" : 6,
-            "properties" : {
-                "title" : "Companies Detected (Gauge)"
-                "metrics" : [
+            "type" = "metric",
+            "x" = 12,
+            "y" = 0,
+            "width" = 12,
+            "height" = 6,
+            "properties" = {
+                "title" = "Companies Detected (Gauge)"
+                "metrics" = [
                     ["kandidat49", "sentiment.analysis.total"]
                 ],
-                "stat" : "Maximum",
-                "period" : 60,
-                "view" : "singleValue"
+                "stat" = "Maximum",
+                "period" = 60,
+                "view" = "singleValue",
+                "annotations" = {}
+
               }
 
              }
