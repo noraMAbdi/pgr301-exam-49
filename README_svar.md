@@ -115,6 +115,7 @@ Når den er ferdig vil du få en grønn checkmark og et Docker-image med samme t
 ----
 
 # Oppgave 4
+## Del A -
 ## Designvalg for Cloudwatch metrikkene og Micrometer
 For denne oppgaven implementerte jeg fire custom metrics i Micrometer for å se hvordan applikasjonen oppfører seg når den gjør sentimentanalyse via AWS Bedrock. Valgene mine var basert på hva jeg synes var aktuelt og interessant for konteksten til oppgaven. 
 Jeg valgte Micrometer instrumentene Counter, Gauge, Timer og DistributionSummary for denne oppgaven.
@@ -133,10 +134,13 @@ Gauge git en øyeblikksverdi som kan øke og synke. Å ha overskikt over hvor ma
 ### 4. DistributionSummary
 Konfidensscoren til metrikken er med på indikere kvaliteten på analysene som jeg var opptatt av. Scoren varierer på analysene, og lot meg se hele spennet. Jeg valgte DistrubutionSummary fordi den lot meg forstå hvordan kvaliteten på analysense fordeler seg over tid.
 
-----
-
 
 ![Cloudwatch success](sentiment-docker/image/cwconsole.png)
+
+## Del B
+
+![Cloudwatch no success](sentiment-docker/image/4b.png)
+Prøvde veldig lenge men det ville verdiene ville ikke dukke opp på dashbordet.
 
 ---
 # Oppgave 5
