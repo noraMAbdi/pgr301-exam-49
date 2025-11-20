@@ -26,7 +26,6 @@ public class SentimentController {
         this.s3StorageService = s3StorageService;
         this.sentimentMetrics = sentimentMetrics;
     }
-
     @PostMapping("/analyze")
     public ResponseEntity<SentimentResult> analyzeSentiment(@RequestBody AnalysisRequest request) {
         try {

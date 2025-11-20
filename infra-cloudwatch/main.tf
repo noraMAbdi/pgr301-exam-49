@@ -26,48 +26,56 @@ resource "aws_cloudwatch_metric_alarm" "companies_detected_high"{
 }
 
 resource "aws_cloudwatch_dashboard" "app_dashboard" {
-    dashboard_name = "kandidat49-SentimentDashboard"
-    dashboard_body = jsonencode({
-       widgets = [
-           {
-               "type" = "metric",
-               "x" = 0 ,
-               "y" = 0,
-               "width" = 12,
-               "height" =  6,
-               "properties" =  {
-                   "title" =  "Sentiment analysis duration"
-                   "region" = "eu-west-1"
-                   "metrics" : [
-                       "kandidat49", "sentiment.analysis.duration"
-                       ],
-              " period" : 60,
-               "stat" : "Average",
-               "view" : "timeSeries",
-               "annotations" = {}
+  dashboard_name = "kandidat49-SentimentDashboard"
 
-               }
-           },
-           {
-            "type" = "metric",
-            "x" = 12,
-            "y" = 0,
-            "width" = 12,
-            "height" = 6,
-            "properties" = {
-                "title" = "Companies Detected (Gauge)"
-                "metrics" = [
-                    ["kandidat49", "sentiment.analysis.total"]
-                ],
-                "stat" = "Maximum",
-                "period" = 60,
-                "view" = "singleValue",
-                "annotations" = {}
-
-              }
-
-             }
-           ]
-        })
-
+  dashboard_body = jsonencode({
+    widgets = [
+      {
+        "type" : "metric",
+        "x" : 0,
+        "y" : 0,
+        "width" : 12,
+        "height" : 6,
+        "properties" : {
+          "title"  : "Company analysis ",
+          "region" : "eu-west-1",
+          "metrics": [
+            [
+              "kandidat49",
+              "sentiment.analysis.duration",
+              "company",
+              "Apple"
+            ]
+          ],
+          "stat"   : "Average",
+          "period" : 60,
+          "view"   : "timeSeries"
+        }
+      },
+      {
+        "type" : "metric",
+        "x" : 12,
+        "y" : 0,
+        "width" : 12,
+        "height" : 6,
+        "properties" : {
+          "title"  : "Companies Detected (Gauge)",
+          "region" : "eu-west-1",
+          "metrics": [
+            [
+              "kandidat49",
+              "sentiment.analysis.companies.detected", // evt .value
+              "company",
+              "Apple"
+            ]
+          ],
+          "stat"   : "Maximum",
+          "period" : 60,
+          "view"   : "singleValue"
+        }
+      }
+    ]
+  })
 }
+
+

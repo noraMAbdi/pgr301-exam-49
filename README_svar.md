@@ -30,13 +30,43 @@ Dockerfile er korrigert i mappen sentiment-docker
 For denne oppgaven implementerte jeg fire custom metrics i Micrometer for å se hvordan applikasjonen oppfører seg når den gjør sentimentanalyse via AWS Bedrock. Valgene mine var basert på hva jeg synes var aktuelt og interessant for konteksten til oppgaven. 
 Jeg valgte Micrometer instrumentene Counter, Gauge, Timer og DistributionSummary for denne oppgaven.
 ### 1. Counter
-sentiment.analysis.total måler antall sentimentanalyser som er utført og blir filtrert på selskap og sentimenttype som f.eks positive og negative.
+sentiment.analysis.total måler antall sentimentanalyser som er utført og blir filtrert på selskap og sentimenttype som f.eks positive og negative. Den kan peke på aktiviteten i systemet, og siden den kun øker er det enklere å forstå.
 
 Jeg valgte at Counter fordi den brukes til metrikker som representerer antall ganger noe skjer. En counter øker bare som gjør det enklere å telle hendelser. Jeg ville ha oversikt over hvor mange ganger jeg hadde 'postive' eller 'negative' følelser mot et selskap fordi jeg syntes at det var realistisk.
 
 ### 2. Timer
+Timer valgte jeg fordi responstid er en av de mest praktiske og intuitive metodene å vurdere ytelsen på. Jeg vile vite hvor lang tid en analyse tar, med tanke på kommunikasjonen den har med en ekstern API. For meg var dette en måte å se om noe går tregere enn det burde.
+
+### 3. Gauge
+Gauge git en øyeblikksverdi som kan øke og synke. Å ha overskikt over hvor mange selskaper som ble funnet i akkurat den siste analysen. Det påpeker en "nåvæerende-tilstand" istedenfor å være en teller, som er derfor jeg valgte Gauge i tillegg til de ande metrikkene. 
+
+
+### 4. DistributionSummary
+Konfidensscoren til metrikken er med på indikere kvaliteten på analysene som jeg var opptatt av. Scoren varierer på analysene, og lot meg se hele spennet. Jeg valgte DistrubutionSummary fordi den lot meg forstå hvordan kvaliteten på analysense fordeler seg over tid.
 
 ----
 
 
-![Cloudwatch success](sentiment-docker/image/cw.png)
+![Cloudwatch success](sentiment-docker/image/cwconsole.png)
+
+---
+# Oppgave 5
+Kunstig Inntligens assistenter som Copilot og Claude er en naturlig del av hverdagen for mange utviklere. KI-assistenter har nesten erstattet typiske ressurser som Stackoverflow, Github, Youtube, GeekForGeeks, osv. Personlig hjelper KI meg med å forstå store konsepter og fungerer som en samtalapartner om mine egene tanker og forslag. Basert på min tidligere erfaring, kan jeg se hvordan dette verktøyet påvirker Devops prinsippene, Flyt, Feedbak og Kontinuerlig læring.
+
+## 1.Flyt (Flow)
+KI-verktøy kan betydelig øke farten i utviklingsprossesen. Når jeg var usikker på min logikk på å løse oppgavaene, så sparte KI meg tid jeg ville ha brukt på å lese mange artikler eller sett på YouTube forklaringer. I tillegg til kode eksempler som KI kan generere på noen få sekunder eller fange feil i eksisterende kode, sparer KI små flaskehalser i flyten som ville ha stoppet fremdrift. Det blir også mindre stress mentalt fordi KI kan raskt foreslå løsningsmetoder, eller gjøre om ideene dine til kode.
+
+Likevel, kan KI skape nye flaskehalser. KI-assistentene kan altså begynne å "innbille" seg informasjon som ikke eksiterer eller ta visse antakelser om prosjektet som ikke stemmer. Basert på tilitten man har til KI assistenten man overse feilene, og det tar lengere tid å feilsøke. Dette kan være en enda større ulempe når løsningen virker korrekt men ikke fungerer ved integrasjon. I bedrift sammenheng, kan dette sløse ressurser om andre utviklere må bruke tid på kontrollere prosjektetet og forstå feilslåtte begrunnelser gjort av den KI generete koden.
+
+## 2. Feedback
+Etter min vurdering er KI-assistenter mest aktuelle og effektive når det gjelder feedback. Siden disse værktøyene er språkmodeller (Language Learning Models) trent op store mengder tekst data, kan de dekke et bredt område av tidligere løsninger, eksempler og mønstre. Dette resulterer i raske forklaringer, alternative fremgangsmåter og feilsøking i sanntid. En slik respons bidrar til en mer dynamisk og iterativ utviklingsporsses, og støtter Devops prinsippet om korte og hyppige tilbakemeldingssløyfer.
+
+Samtidig vil språkmodellen føre til begrensinger. KI-assistenter kan gi kode eller begrunnelser som er helt feilslått, men feedbacken kan fremdeles framstå som overbevisende. Dette kan føre til falsk trygghet, dersom brukeren ikke aktivt evaluerer svaret. Videre har modellen kun tilgang til den begrensede informasjonen som brukeren deler, med mindre man deler hver eneste del av prosjektet og konteksten. Dette kan føre til upresis eller helt misvisende feedback.
+
+## 3. Kontinuerlig læring
+Til en viss grad kan man telle KI-verktøy som faktiske læringspartnere. De gir forklaringer, svarer i sanntid og hjelper utviklere å forstå konsepter eller kode som ville tatt lenger tid å lære. Jeg merket at jeg lærte fortere og riktigere av å stille spørsmål til modellen istedenfor å spørre medelever eller søke på nettet selv. Det skaper en kultur hvor det er enklere for utviklere å eksperimentere og forbedre sine evner. Dette passer til Devops fokuset på kontinuerlig forbedring.
+Samt finnes det risikioer. Hvis utviklere blir avhengig av KI, kan vi miste dybdeforståelsen som trengs for å faktisk bygge store prosjekter på egen kunnskap. Når verktøyet gjør mye av tankearbeidet så lærer man mindre om hvordan og hvorfor løsningen fungerer. Organisasjoner og potensielt skoler må derfor jobbe med bevisst bruk og kunnskapsdeling. Slik at KI faktisk forblir et verktøy og ikke et første-valg.
+
+## Konklusjon
+KI assistenter har en sterk påvirking alle tre Devops-prinsippene, i både negativ og positiv sammenheng. KI kan øke flyt drastisk, gi raskere og kreativ feedback og støtte utviklere i kontinuerlig læring. Samtidig kan den svekke det man ville unngå som dårlig kvalitet på kodeforslag, forrvirrende feedback og svekket dybdekunnskap.
+Min erfaring er at KI er mest nyttig når det brukes bevisst og kritisk. Altså, ikke benytte eller stole på assistenten mer jeg hadde stolt på andre kilder som Stackoverflow, YouTube eller forelesningsmateriale. Likevel, med riktig balanse kan KI løfte og opprettholde Devops praksis, så lenge man har refleksjon slik at det ikke hindrer læring og kvalitet.
