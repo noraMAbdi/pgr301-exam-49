@@ -58,22 +58,19 @@ Gå til
 Settings → Actions → General
 
 Under Workflow permissions, velg:
-✔ Read and write permissions
-✔ Huk av Allow GitHub Actions to create and approve pull requests
+- Read and write permissions
+- Huk av Allow GitHub Actions to create and approve pull requests
 
 4. Kjør workflowen manuelt
 
-Du har satt workflowen til å bruke workflow_dispatch, så sensor kan trigge den manuelt:
+- Gå til Actions i repoet.
 
-Gå til Actions i repoet.
+- Velg workflowen “Deploy SAM Application”.
 
-Velg workflowen “Deploy SAM Application”.
-
-Klikk Run workflow (grønn knapp).
+- Klikk Run workflow (grønn knapp).
 
 Vent til jobben fullfører (grønn checkmark).
 
-Dette produserer Successful deploy-beviset.
 ----
 
 # Oppgave 4
