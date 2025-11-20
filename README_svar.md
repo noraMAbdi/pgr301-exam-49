@@ -13,7 +13,7 @@ Riktig Actions run: https://github.com/noraMAbdi/pgr301-exam-49/actions/runs/192
 
 # PR test branch
 https://github.com/noraMAbdi/pgr301-exam-49/actions/runs/19244777057
-
+![workflow run screenshot](sam-comprehend/sd.png)
 ----
 
 # Oppgave 3
@@ -22,7 +22,58 @@ Dockerfile er korrigert i mappen sentiment-docker
 
 ## Del B
 - Vellykket run https://github.com/noraMAbdi/pgr301-exam-49/actions/workflows/docker-build.yml
+  ![workflow run screenshot](sentiment-docker/image/dock.png)
+# Instruksjoner til sensor – slik kjører du workflow’en på din egen GitHub-konto
 
+
+For å kjøre GitHub Actions-workflowen på din egen konto, vennligst følg disse trinnene:
+
+1. Fork repositoriet mitt
+
+Gå til GitHub-repoet:
+-  https://github.com/noraMAbdi/pgr301-exam-49
+
+Klikk Fork (øverst til høyre).
+Dette lager en kopi i din egen GitHub-konto.
+
+2. Sett opp GitHub Secrets i ditt repo
+
+Workflowen bruker miljøvariabler og AWS-nøkler via GitHub Secrets.
+
+Gå til:
+
+Settings → Secrets and variables → Actions
+
+Opprett følgende secrets (samme navn som i workflow-filen min):
+
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+
+
+3. Aktiver required permissions for GitHub Actions
+
+Sensor må slå på at Actions kan gjøre deployments.
+
+Gå til
+Settings → Actions → General
+
+Under Workflow permissions, velg:
+✔ Read and write permissions
+✔ Huk av Allow GitHub Actions to create and approve pull requests
+
+4. Kjør workflowen manuelt
+
+Du har satt workflowen til å bruke workflow_dispatch, så sensor kan trigge den manuelt:
+
+Gå til Actions i repoet.
+
+Velg workflowen “Deploy SAM Application”.
+
+Klikk Run workflow (grønn knapp).
+
+Vent til jobben fullfører (grønn checkmark).
+
+Dette produserer Successful deploy-beviset.
 ----
 
 # Oppgave 4
@@ -51,22 +102,22 @@ Konfidensscoren til metrikken er med på indikere kvaliteten på analysene som j
 
 ---
 # Oppgave 5
-Kunstig Inntligens assistenter som Copilot og Claude er en naturlig del av hverdagen for mange utviklere. KI-assistenter har nesten erstattet typiske ressurser som Stackoverflow, Github, Youtube, GeekForGeeks, osv. Personlig hjelper KI meg med å forstå store konsepter og fungerer som en samtalapartner om mine egene tanker og forslag. Basert på min tidligere erfaring, kan jeg se hvordan dette verktøyet påvirker Devops prinsippene, Flyt, Feedbak og Kontinuerlig læring.
+Kunstig Intelligens assistenter som Copilot og Claude er en naturlig del av hverdagen for mange utviklere. KI-assistenter har nesten erstattet typiske ressurser som Stackoverflow, Github, Youtube, GeekForGeeks, osv. Personlig hjelper KI meg med å forstå store konsepter og fungerer som en samtalepartner om mine egne tanker og forslag. Basert på min tidligere erfaring, kan jeg se hvordan dette verktøyet påvirker Devops prinsippene, Flyt, Feedback og Kontinuerlig læring.
 
 ## 1.Flyt (Flow)
-KI-verktøy kan betydelig øke farten i utviklingsprossesen. Når jeg var usikker på min logikk på å løse oppgavaene, så sparte KI meg tid jeg ville ha brukt på å lese mange artikler eller sett på YouTube forklaringer. I tillegg til kode eksempler som KI kan generere på noen få sekunder eller fange feil i eksisterende kode, sparer KI små flaskehalser i flyten som ville ha stoppet fremdrift. Det blir også mindre stress mentalt fordi KI kan raskt foreslå løsningsmetoder, eller gjøre om ideene dine til kode.
+KI-verktøy kan betydelig øke farten i utviklingsprosessen. Basert på erfaringer med KI assistenter opplever jeg at tid reduseres, tid som jeg ellers ville brukt på å søke gjennom dokumentasjon, artikler eller videoer for å løse et problem. Når jeg var usikker på egen løsningslogikk, kunne KI raskt gi eksempler, foreslå alternative tilnærminger eller påpeke feil i min kode. Dette bidrar til at flyten ikke avbrytes av små og hyppige flaskehalser. I tillegg reduserer den mentale belastningen når verktøyet kan omforme ideer til kode eller foreslå strategier på få sekunder
 
-Likevel, kan KI skape nye flaskehalser. KI-assistentene kan altså begynne å "innbille" seg informasjon som ikke eksiterer eller ta visse antakelser om prosjektet som ikke stemmer. Basert på tilitten man har til KI assistenten man overse feilene, og det tar lengere tid å feilsøke. Dette kan være en enda større ulempe når løsningen virker korrekt men ikke fungerer ved integrasjon. I bedrift sammenheng, kan dette sløse ressurser om andre utviklere må bruke tid på kontrollere prosjektetet og forstå feilslåtte begrunnelser gjort av den KI generete koden.
+Likevel, kan KI skape nye flaskehalser. Språkmodeller kan "hallusinere" som vil si produsere informasjon som ikke stemmer eller ta usanne antakelser om prosjektet. Basert på forholdet man har til KI assistenten, kan en overse feilene og det tar lengere tid å feil søke. I tillegg, kan koden se korrekt ut, men ikke fungere ved integrasjon. Slike feil kan skape mer arbeid i team som nå må bruke tid på kontrollere begrunnelser, feil søke, forstå eller fjerne den KI genererte koden. Dermed kan KI både forsinke og fremdrive flyten, men er avhengig av hvordan verktøyet brukes. 
 
 ## 2. Feedback
-Etter min vurdering er KI-assistenter mest aktuelle og effektive når det gjelder feedback. Siden disse værktøyene er språkmodeller (Language Learning Models) trent op store mengder tekst data, kan de dekke et bredt område av tidligere løsninger, eksempler og mønstre. Dette resulterer i raske forklaringer, alternative fremgangsmåter og feilsøking i sanntid. En slik respons bidrar til en mer dynamisk og iterativ utviklingsporsses, og støtter Devops prinsippet om korte og hyppige tilbakemeldingssløyfer.
+Etter min vurdering er KI-assistenter mest aktuelle og effektive når det gjelder feedback. Siden disse verktøyene er språkmodeller (Language Learning Models) trent på store mengder tekst data, kan de dekke et bredt område av tidligere løsninger, eksempler og mønstre. Dette resulterer i raske forklaringer, alternative fremgangsmåter og feilsøking i sanntid. En slik respons bidrar til en mer dynamisk og iterativ utviklingsprosess, og støtter Devops prinsippet om korte og hyppige tilbakemeldingssløyfer.
 
 Samtidig vil språkmodellen føre til begrensinger. KI-assistenter kan gi kode eller begrunnelser som er helt feilslått, men feedbacken kan fremdeles framstå som overbevisende. Dette kan føre til falsk trygghet, dersom brukeren ikke aktivt evaluerer svaret. Videre har modellen kun tilgang til den begrensede informasjonen som brukeren deler, med mindre man deler hver eneste del av prosjektet og konteksten. Dette kan føre til upresis eller helt misvisende feedback.
 
 ## 3. Kontinuerlig læring
-Til en viss grad kan man telle KI-verktøy som faktiske læringspartnere. De gir forklaringer, svarer i sanntid og hjelper utviklere å forstå konsepter eller kode som ville tatt lenger tid å lære. Jeg merket at jeg lærte fortere og riktigere av å stille spørsmål til modellen istedenfor å spørre medelever eller søke på nettet selv. Det skaper en kultur hvor det er enklere for utviklere å eksperimentere og forbedre sine evner. Dette passer til Devops fokuset på kontinuerlig forbedring.
-Samt finnes det risikioer. Hvis utviklere blir avhengig av KI, kan vi miste dybdeforståelsen som trengs for å faktisk bygge store prosjekter på egen kunnskap. Når verktøyet gjør mye av tankearbeidet så lærer man mindre om hvordan og hvorfor løsningen fungerer. Organisasjoner og potensielt skoler må derfor jobbe med bevisst bruk og kunnskapsdeling. Slik at KI faktisk forblir et verktøy og ikke et første-valg.
+Til en viss grad kan man telle KI-verktøy som faktiske læringspartnere. De gir forklaringer, svarer i sanntid og hjelper utviklere å forstå konsepter eller kode som ville tatt lenger tid å lære. Jeg merket at jeg lærte fortere av å stille spørsmål til modellen istedenfor å spørre medelever eller søke på nettet selv. Det skaper en kultur hvor det er enklere for utviklere å eksperimentere og forbedre sine evner. Dette passer til Devops fokuset på kontinuerlig forbedring.
+Samt finnes det risikoer. Hvis utviklere blir avhengig av KI, kan vi miste dybdeforståelsen som trengs for å faktisk bygge store prosjekter på egen kunnskap. Når verktøyet gjør mye av tankearbeidet så lærer man mindre om hvordan og hvorfor løsningen fungerer. Organisasjoner og potensielt skoler må derfor jobbe med bevisst bruk og kunnskapsdeling. Slik at KI faktisk forblir et verktøy og ikke et første valg.
 
 ## Konklusjon
-KI assistenter har en sterk påvirking alle tre Devops-prinsippene, i både negativ og positiv sammenheng. KI kan øke flyt drastisk, gi raskere og kreativ feedback og støtte utviklere i kontinuerlig læring. Samtidig kan den svekke det man ville unngå som dårlig kvalitet på kodeforslag, forrvirrende feedback og svekket dybdekunnskap.
+KI assistenter påvirker alle tre Devops-prinsippene sterkt, i både negativ og positiv sammenheng. KI kan øke flyt drastisk, gi raskere og kreativ feedback og støtte utviklere i kontinuerlig læring. Samtidig kan den svekke det man ville unngå som dårlig kvalitet på kode, forvirrende feedback og svekket dybdekunnskap.
 Min erfaring er at KI er mest nyttig når det brukes bevisst og kritisk. Altså, ikke benytte eller stole på assistenten mer jeg hadde stolt på andre kilder som Stackoverflow, YouTube eller forelesningsmateriale. Likevel, med riktig balanse kan KI løfte og opprettholde Devops praksis, så lenge man har refleksjon slik at det ikke hindrer læring og kvalitet.
