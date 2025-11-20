@@ -14,6 +14,53 @@ Riktig Actions run: https://github.com/noraMAbdi/pgr301-exam-49/actions/runs/192
 # PR test branch
 https://github.com/noraMAbdi/pgr301-exam-49/actions/runs/19244777057
 ![workflow run screenshot](sam-comprehend/sd.png)
+# Instruksjoner til sensor – slik kjører du workflow’en på din egen GitHub-konto
+
+
+For å kjøre GitHub Actions-workflowen på din egen konto, vennligst følg disse trinnene:
+
+## 1. Fork repositoriet mitt
+
+Gå til GitHub-repoet:
+-  https://github.com/noraMAbdi/pgr301-exam-49
+
+Klikk Fork (øverst til høyre).
+Dette lager en kopi i din egen GitHub-konto.
+
+## 2. Sett opp GitHub Secrets i ditt repo
+
+Workflowen bruker miljøvariabler og AWS-nøkler via GitHub Secrets.
+
+Gå til:
+- Settings → Secrets and variables → Actions
+
+Opprett følgende secrets (samme navn som i workflow-filen min):
+
+- AWS_ACCESS_KEY_ID
+- AWS_SECRET_ACCESS_KEY
+
+
+## 3. Aktiver nødvendige tilatelser for GitHub Actions
+
+Workflowen krever at Actions kan deploye og skrive til repoet.
+
+Gå til:
+- Settings → Actions → General
+
+Under Workflow permissions, velg:
+- Read and write permissions
+- Huk av Allow GitHub Actions to create and approve pull requests
+
+## 4. Kjør workflowen manuelt
+
+- Gå til Actions i repoet.
+
+- Velg workflowen “Deploy SAM Application”.
+
+- Klikk Run workflow (grønn knapp).
+
+Vent til jobben fullfører (grønn checkmark).
+
 ----
 
 # Oppgave 3
@@ -23,53 +70,47 @@ Dockerfile er korrigert i mappen sentiment-docker
 ## Del B
 - Vellykket run https://github.com/noraMAbdi/pgr301-exam-49/actions/workflows/docker-build.yml
   ![workflow run screenshot](sentiment-docker/image/dock.png)
-# Instruksjoner til sensor – slik kjører du workflow’en på din egen GitHub-konto
 
+For å kjøre Docker-bygge-workflowen i din egen GitHub-konto, gjør følgende:
 
-For å kjøre GitHub Actions-workflowen på din egen konto, vennligst følg disse trinnene:
+### 1. Fork repoet mitt
 
-1. Fork repositoriet mitt
+Gå til repoet:
+https://github.com/noraMAbdi/pgr301-exam-49
 
-Gå til GitHub-repoet:
--  https://github.com/noraMAbdi/pgr301-exam-49
+Klikk Fork.
 
-Klikk Fork (øverst til høyre).
-Dette lager en kopi i din egen GitHub-konto.
+### 2. Sett opp GitHub Secrets
 
-2. Sett opp GitHub Secrets i ditt repo
+Workflowen bruker Docker Hub-innlogging i secrets.
 
-Workflowen bruker miljøvariabler og AWS-nøkler via GitHub Secrets.
+I din fork, gå til:
+- Settings → Secrets and variables → Actions
 
-Gå til:
+Opprett disse secrets:
 
-Settings → Secrets and variables → Actions
+- DOCKER_USERNAME
 
-Opprett følgende secrets (samme navn som i workflow-filen min):
+- DOCKER_TOKEN
 
-AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY
+(Dette er identiske navn som workflowen forventer.)
 
+### 3. Gi Actions nødvendige rettigheter
 
-3. Aktiver required permissions for GitHub Actions
+Gå til: Settings → Actions → General
 
-Sensor må slå på at Actions kan gjøre deployments.
+Under Workflow permissions velger du:
 
-Gå til
-Settings → Actions → General
+Read and write permissions
 
-Under Workflow permissions, velg:
-- Read and write permissions
-- Huk av Allow GitHub Actions to create and approve pull requests
+### 4. Kjør workflowen manuelt
 
-4. Kjør workflowen manuelt
+Gå til Actions
 
-- Gå til Actions i repoet.
+- Velg workflowen “Lager sentiment-docker”
+- Klikk Run workflow
 
-- Velg workflowen “Deploy SAM Application”.
-
-- Klikk Run workflow (grønn knapp).
-
-Vent til jobben fullfører (grønn checkmark).
+Når den er ferdig vil du få en grønn checkmark og et Docker-image med samme tag som workflowen genererer - v1
 
 ----
 
